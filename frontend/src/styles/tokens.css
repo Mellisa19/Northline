@@ -1,0 +1,805 @@
+/* ==========================================================================
+   Northline design tokens
+
+   Warm paper, warm ink, one accent that means "act", and a motion vocabulary
+   with named durations so nothing animates at a speed nobody chose.
+   ========================================================================== */
+
+:root {
+  /* Surfaces ------------------------------------------------------------ */
+  --paper: #fbf8f3;
+  --paper-2: #f4efe6;
+  --paper-3: #ece5d9;
+  --surface: #ffffff;
+  --ink-surface: #14100c;
+
+  /* Ink ----------------------------------------------------------------- */
+  --ink: #17130f;
+  --ink-2: #4a423b;
+  --ink-3: #7a7069;
+  --ink-4: #a79d95;
+  --on-dark: #f7f1e8;
+  --on-dark-2: rgba(247, 241, 232, 0.68);
+  --on-dark-3: rgba(247, 241, 232, 0.42);
+
+  --rule: rgba(23, 19, 15, 0.1);
+  --rule-2: rgba(23, 19, 15, 0.055);
+  --rule-strong: rgba(23, 19, 15, 0.22);
+  --rule-dark: rgba(247, 241, 232, 0.14);
+
+  /* Accents -------------------------------------------------------------- */
+  --clay: #c2571a;
+  --clay-deep: #a4470f;
+  --clay-soft: rgba(194, 87, 26, 0.1);
+  --clay-line: rgba(194, 87, 26, 0.32);
+
+  --rust: #9a3b2a;
+  --rust-soft: rgba(154, 59, 42, 0.1);
+  --sage: #4a7c59;
+  --sage-soft: rgba(74, 124, 89, 0.1);
+  --ochre: #a16207;
+  --plum: #7c4a6b;
+  --marine: #2f5d6b;
+
+  /* Semantic ------------------------------------------------------------ */
+  --signal: var(--clay);
+  --signal-soft: var(--clay-soft);
+  --signal-line: var(--clay-line);
+  --risk: var(--rust);
+  --risk-soft: var(--rust-soft);
+  --resolve: var(--sage);
+  --resolve-soft: var(--sage-soft);
+  --quiet: var(--ink-3);
+  --quiet-soft: rgba(122, 112, 105, 0.1);
+
+  /* Delinquency bands --------------------------------------------------- */
+  --band-0: #4a7c59;
+  --band-1: #a16207;
+  --band-2: #c2571a;
+  --band-3: #a8412a;
+  --band-4: #8f2f22;
+
+  /* Avatar tints -------------------------------------------------------- */
+  --tone-clay: #c2571a;
+  --tone-ochre: #a16207;
+  --tone-sage: #4a7c59;
+  --tone-plum: #7c4a6b;
+  --tone-marine: #2f5d6b;
+  --tone-rust: #9a3b2a;
+
+  /* Type ---------------------------------------------------------------- */
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --sans: "Inter Tight", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  --step--2: 0.6875rem;
+  --step--1: 0.8125rem;
+  --step-0: 0.9375rem;
+  --step-1: 1.0625rem;
+  --step-2: 1.375rem;
+  --step-3: clamp(1.5rem, 2.2vw, 2rem);
+  --step-4: clamp(1.9rem, 3.2vw, 2.75rem);
+  --step-5: clamp(2.4rem, 5.2vw, 4.2rem);
+  --step-6: clamp(2.9rem, 7.4vw, 6rem);
+
+  /* Space --------------------------------------------------------------- */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4.5rem;
+  --s-9: 7rem;
+
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --shell: 1520px;
+
+  /* Shape --------------------------------------------------------------- */
+  --r-xs: 6px;
+  --r-sm: 9px;
+  --r-md: 13px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  --shadow-xs: 0 1px 2px rgba(23, 19, 15, 0.05);
+  --shadow-sm: 0 1px 2px rgba(23, 19, 15, 0.05), 0 4px 12px -6px rgba(23, 19, 15, 0.12);
+  --shadow-md: 0 2px 4px rgba(23, 19, 15, 0.04), 0 16px 32px -20px rgba(23, 19, 15, 0.28);
+  --shadow-lg: 0 4px 8px rgba(23, 19, 15, 0.05), 0 32px 64px -32px rgba(23, 19, 15, 0.35);
+  --ring: 0 0 0 3px rgba(194, 87, 26, 0.22);
+
+  /* Motion -------------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.42, 0.64, 1);
+  --dur-instant: 110ms;
+  --dur-fast: 180ms;
+  --dur: 280ms;
+  --dur-slow: 520ms;
+  --dur-lazy: 820ms;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  font-feature-settings: "cv05" 1, "ss01" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: -0.018em;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--clay);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: var(--r-xs);
+}
+
+/* ==========================================================================
+   Type
+   ========================================================================== */
+
+.display {
+  font-family: var(--serif);
+  font-size: var(--step-5);
+  line-height: 0.98;
+  letter-spacing: -0.024em;
+}
+
+.display--xl {
+  font-size: var(--step-6);
+}
+
+.serif {
+  font-family: var(--serif);
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.eyebrow--signal {
+  color: var(--clay);
+}
+
+.lede {
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 44ch;
+}
+
+.muted {
+  color: var(--ink-3);
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+}
+
+.tnum {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.figure {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+.figure--xl {
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+}
+.figure--lg {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+}
+.figure--md {
+  font-size: 1.3rem;
+}
+.figure--sm {
+  font-size: 0.95rem;
+}
+
+.figure__unit {
+  font-size: 0.5em;
+  color: var(--ink-3);
+  margin-left: 0.12em;
+  letter-spacing: 0;
+}
+
+.source {
+  font-family: var(--mono);
+  font-size: var(--step--2);
+  color: var(--ink-4);
+  letter-spacing: 0.03em;
+}
+
+.note {
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(3.5rem, 7vw, 7rem);
+  border-top: 1px solid var(--rule);
+  position: relative;
+}
+
+.section__head {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+@media (max-width: 900px) {
+  .section__head {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section__title {
+  margin-top: var(--s-3);
+  font-size: var(--step-4);
+  line-height: 1.02;
+}
+
+.cols-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-5);
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Controls
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  padding: 0.7rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--rule-strong);
+}
+
+.btn--ghost:hover {
+  background: rgba(23, 19, 15, 0.045);
+  border-color: var(--ink);
+}
+
+.btn--signal {
+  background: var(--clay);
+  color: #fff;
+}
+
+.btn--signal:hover {
+  background: var(--clay-deep);
+}
+
+.btn--light {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.btn--dark-ghost {
+  background: transparent;
+  color: var(--on-dark);
+  border-color: var(--rule-dark);
+}
+
+.btn--dark-ghost:hover {
+  background: rgba(247, 241, 232, 0.08);
+  border-color: var(--on-dark);
+}
+
+.btn--sm {
+  padding: 0.42rem 0.8rem;
+  font-size: var(--step--2);
+}
+
+.btn--lg {
+  padding: 0.9rem 1.5rem;
+  font-size: var(--step-0);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.55rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-pill);
+  font-family: var(--mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.03em;
+  color: var(--ink-2);
+  white-space: nowrap;
+  background: var(--surface);
+}
+
+.chip--signal {
+  border-color: var(--clay-line);
+  background: var(--clay-soft);
+  color: var(--clay-deep);
+}
+
+.chip--risk {
+  border-color: rgba(154, 59, 42, 0.3);
+  background: var(--rust-soft);
+  color: var(--rust);
+}
+
+.chip--resolve {
+  border-color: rgba(74, 124, 89, 0.28);
+  background: var(--sage-soft);
+  color: var(--sage);
+}
+
+.chip--quiet {
+  background: var(--paper-2);
+  color: var(--ink-3);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+/* Form fields, shared by the public forms and the workspace ----------------- */
+.field {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.field__label,
+.field > .eyebrow {
+  pointer-events: none;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: var(--step-0);
+  color: var(--ink);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.field textarea {
+  resize: vertical;
+  font-family: var(--sans);
+  line-height: 1.5;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: var(--clay);
+  box-shadow: var(--ring);
+  outline: none;
+}
+
+.field__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field__hint {
+  font-size: var(--step--2);
+  color: var(--ink-4);
+}
+
+.field--full {
+  grid-column: 1 / -1;
+}
+
+/* ==========================================================================
+   Surfaces
+   ========================================================================== */
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  padding: var(--s-5);
+  box-shadow: var(--shadow-xs);
+}
+
+.panel__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: var(--s-4);
+}
+
+.panel__title {
+  font-size: var(--step-1);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+}
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--rule-strong);
+  white-space: nowrap;
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.table td {
+  padding: 0.72rem 0.75rem;
+  border-bottom: 1px solid var(--rule-2);
+  vertical-align: middle;
+}
+
+.table tbody tr {
+  transition: background var(--dur-instant) var(--ease-out);
+}
+
+.table tbody tr:hover {
+  background: rgba(23, 19, 15, 0.028);
+}
+
+.table .numeric {
+  text-align: right;
+  font-family: var(--mono);
+  font-size: var(--step--1);
+  white-space: nowrap;
+}
+
+.table .name {
+  font-weight: 500;
+  letter-spacing: -0.006em;
+}
+
+.table .ref {
+  font-family: var(--mono);
+  font-size: var(--step--2);
+  color: var(--ink-4);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-xs);
+}
+
+/* ==========================================================================
+   Motion
+
+   Every animation is opt-out via prefers-reduced-motion at the bottom of this
+   file, and every duration comes from a token so pacing stays coherent.
+   ========================================================================== */
+
+@keyframes nl-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes nl-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes nl-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes nl-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes nl-draw {
+  from {
+    stroke-dashoffset: var(--draw-length, 1200);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes nl-grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes nl-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(194, 87, 26, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(194, 87, 26, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(194, 87, 26, 0);
+  }
+}
+
+@keyframes nl-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes nl-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0) scale(1.06);
+  }
+}
+
+@keyframes nl-shimmer {
+  from {
+    background-position: -180% 0;
+  }
+  to {
+    background-position: 180% 0;
+  }
+}
+
+@keyframes nl-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Scroll reveal: the element is hidden until an observer marks it visible. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal--fade {
+  transform: none;
+}
+
+.reveal--scale {
+  transform: scale(0.97);
+}
+
+.reveal--scale.is-visible {
+  transform: none;
+}
+
+/* Entrance for elements that appear on mount rather than on scroll. */
+.enter {
+  animation: nl-fade-up var(--dur-slow) var(--ease-out) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+.enter--fade {
+  animation-name: nl-fade;
+}
+
+.enter--scale {
+  animation-name: nl-scale-in;
+}
+
+.spin {
+  animation: nl-spin 700ms linear infinite;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--paper-2) 25%,
+    var(--paper-3) 37%,
+    var(--paper-2) 63%
+  );
+  background-size: 220% 100%;
+  animation: nl-shimmer 1.4s linear infinite;
+  border-radius: var(--r-xs);
+  color: transparent;
+}
+
+/* Page transition applied when the workspace changes screen. */
+.page-enter {
+  animation: nl-fade-up var(--dur) var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

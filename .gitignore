@@ -1,0 +1,55 @@
+# ---------------------------------------------------------------------------
+# Secrets. Never commit these.
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+client_secret*.json
+service-account*.json
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+*.egg-info/
+build/
+develop-eggs/
+
+# ---------------------------------------------------------------------------
+# Generated data. The demo portfolio is rebuilt with `python seed.py --force`;
+# it is not source and should never be committed.
+# ---------------------------------------------------------------------------
+backend/data/
+*.db
+*.db-wal
+*.db-shm
+
+# ---------------------------------------------------------------------------
+# Node
+# ---------------------------------------------------------------------------
+node_modules/
+dist/
+dist-verify/
+.vite/
+*.local
+
+# ---------------------------------------------------------------------------
+# Editors, tooling and OS noise
+# ---------------------------------------------------------------------------
+.npm-cache/
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
