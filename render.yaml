@@ -1,0 +1,38 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+#
+# Push this repository to GitHub, then in Render choose
+#   New +  →  Blueprint  →  connect this repository
+# and Render reads this file, builds the Dockerfile and asks for the values marked
+# `sync: false`. Nothing here contains a secret.
+services:
+  - type: web
+    name: northline
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      # Shared credentials for the demonstration organisation. Turn this off only
+      # if you are putting real borrower data behind it.
+      - key: DEMO_MODE
+        value: "true"
+
+      # The public origin of this service, for example
+      # https://northline.onrender.com — Render fills this in for you.
+      - key: APP_BASE_URL
+        fromService:
+          type: web
+          name: northline
+          envVarKey: RENDER_EXTERNAL_URL
+
+      # Google sign-in. Leave these blank to run without it; the button simply does
+      # not appear. To enable it, create an OAuth client (see README) and add the
+      # deployed callback URL to its authorised redirect URIs, then paste the
+      # values here. They are secrets: Render stores them encrypted, not in git.
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
+        sync: false

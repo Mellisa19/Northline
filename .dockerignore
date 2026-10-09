@@ -1,0 +1,34 @@
+# Keep the build context small, and keep secrets out of the image entirely.
+
+# Never ship a real environment file inside an image.
+**/.env
+**/.env.*
+!**/.env.example
+
+# Dependencies and build output are produced inside the image.
+**/node_modules
+**/dist
+**/dist-verify
+**/.npm-cache
+**/.vite
+
+# Generated data: the demonstration book is created by the build step instead.
+**/*.db
+**/*.db-wal
+**/*.db-shm
+backend/data/
+
+# Local artefacts
+**/__pycache__
+**/*.py[cod]
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+**/.tmp
+
+# Version control and editors
+.git
+.gitignore
+**/.idea
+**/.vscode
+**/.DS_Store

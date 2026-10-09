@@ -8,7 +8,7 @@ part that produces the outcome data everything else learns from.
 from __future__ import annotations
 
 import sqlite3
-from datetime import date, timedelta
+from datetime import date
 
 from . import analytics, config
 

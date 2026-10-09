@@ -9,13 +9,12 @@ from __future__ import annotations
 
 import csv
 import io
-import json
-from datetime import date
+from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Query, Request, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, PlainTextResponse
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from pydantic import BaseModel, Field
 
 from . import analytics, auth, auth_api, config, env, operations, playbooks, priority, scoring
@@ -696,3 +695,33 @@ async def triage(file: UploadFile = File(...)) -> dict[str, Any]:
             "The upload is held in memory for this response only and is not stored."
         ),
     }
+
+
+# ---------------------------------------------------------------------------
+# The built interface
+# ---------------------------------------------------------------------------
+# In development Vite serves the interface and proxies /api to here, so this does
+# nothing. In a deployment the one container serves both, which keeps everything on
+# a single origin and takes CORS out of the picture entirely.
+DIST_DIR = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
+
+# Registered last, so every explicit route above wins.
+@app.get("/{path:path}", include_in_schema=False)
+def serve_interface(path: str) -> FileResponse:
+    if path.startswith(("api/", "docs", "redoc", "openapi.json")):
+        raise HTTPException(status_code=404, detail="Not found")
+
+    if not (DIST_DIR / "index.html").is_file():
+        raise HTTPException(
+            status_code=404,
+            detail="The interface has not been built. Run `npm run build` in frontend/.",
+        )
+
+    if path:
+        candidate = (DIST_DIR / path).resolve()
+        # Refuse to serve anything outside the build output.
+        if candidate.is_file() and DIST_DIR.resolve() in candidate.parents:
+            return FileResponse(candidate)
+
+    # Everything else is a client-side route: hand back the shell.
+    return FileResponse(DIST_DIR / "index.html")

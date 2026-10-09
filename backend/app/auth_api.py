@@ -10,7 +10,7 @@ from urllib.parse import quote
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import RedirectResponse
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, Field
 
 from . import auth, google
 from .db import connect, create_schema
@@ -60,10 +60,19 @@ def roles() -> dict:
 
 @router.get("/auth/demo")
 def demo_credentials() -> dict:
-    """The seeded demo team, so the product can be looked at without signing up."""
+    """Shared credentials for the demonstration organisation.
+
+    On by default, because walking straight into a synthetic portfolio is the point
+    of a demonstration. Set ``DEMO_MODE=false`` and this returns 404 and no demo
+    team is created — which is what a real deployment holding real borrower data
+    would do.
+    """
+    if not auth.demo_mode_enabled():
+        raise HTTPException(status_code=404, detail="Demo access is turned off on this server.")
     return {
         "organisation": "Northline Demo Lending",
         "password": auth.DEMO_PASSWORD,
+        "notice": auth.DEMO_NOTICE,
         "accounts": [
             {"email": email, "name": name, "role": role, "role_label": auth.ROLE_BY_CODE[role]["label"]}
             for email, name, role, _title, _tone in auth.DEMO_TEAM

@@ -16,6 +16,8 @@ from datetime import date, datetime, timedelta, timezone
 
 from fastapi import Header, HTTPException
 
+from . import env
+
 PBKDF2_ROUNDS = 240_000
 SESSION_DAYS = 14
 
@@ -191,9 +193,18 @@ def require_admin(user: dict) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Seeding a demo organisation
+# Demo access
 # ---------------------------------------------------------------------------
+# Northline ships with a synthetic book. Letting a visitor walk straight in is the
+# whole point of a demonstration, so demo access is on unless it is explicitly
+# turned off — but it is a named, documented switch rather than an accident, and
+# it is refused the moment DEMO_MODE is anything falsy.
 DEMO_PASSWORD = "northline2026"
+
+DEMO_NOTICE = (
+    "These are shared credentials for a demonstration organisation. The portfolio "
+    "behind them is generated, not real borrower data."
+)
 
 DEMO_TEAM = [
     ("admin@northline.ng", "Ade Balogun", "admin", "Head of Credit", "clay"),
@@ -204,8 +215,16 @@ DEMO_TEAM = [
 ]
 
 
+def demo_mode_enabled() -> bool:
+    raw = env.get("DEMO_MODE", "true") or "true"
+    return raw.strip().lower() not in {"0", "false", "no", "off", "disabled"}
+
+
 def seed_demo_team(connection: sqlite3.Connection) -> dict:
     """Create the demo organisation and its team, if they are not there yet."""
+    if not demo_mode_enabled():
+        return {"created": 0, "existing": 0, "disabled": True}
+
     existing = connection.execute("SELECT COUNT(*) AS n FROM users").fetchone()["n"]
     if existing:
         return {"created": 0, "existing": existing}
